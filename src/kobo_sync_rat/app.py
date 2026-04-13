@@ -2,11 +2,13 @@ import os
 from logging import getLogger as get_logger
 
 from fastapi import FastAPI, HTTPException, Request
+from fastapi.responses import PlainTextResponse
 
 from kobo_sync_rat.middleware import LoggingMiddleware, OverrideBaseUrl
 from kobo_sync_rat.routers import (
     auth_router,
     configuration_router,
+    documentation_router,
     library_router,
     store_router,
 )
@@ -23,11 +25,8 @@ app.include_router(configuration_router)
 app.include_router(auth_router)
 app.include_router(library_router)
 app.include_router(store_router)
+app.include_router(documentation_router)
 
-
-@app.get("/")
-def index():
-    return "This is the kobo sync server.  Read more at.."
 
 
 @app.get("/elabels/{elabels_zip}")
