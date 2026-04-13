@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import IO
 
 from kobo_sync_rat.source.source import EbookMetadata
 
@@ -13,5 +14,5 @@ class MetadataReader(ABC):
         pass
 
     @abstractmethod
-    def read_thumbnail(self, filename: str) -> bytes:
+    def read_thumbnail(self, filename: str) -> IO[bytes]:
         pass
