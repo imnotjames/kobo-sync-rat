@@ -11,11 +11,13 @@ from fastapi.responses import StreamingResponse
 from pydantic import Field, TypeAdapter
 
 from kobo_sync.dependencies import get_ebook_source
-from kobo_sync.models.kobo.sync import (
-    KoboEbookContributor,
-    KoboEbookDownloadFormat,
-    KoboEbookDownloadPlatform,
-    KoboEbookDownloadUrl,
+from kobo_sync.models.kobo.generic import (
+    KoboContributor,
+    KoboDownloadFormat,
+    KoboDownloadPlatform,
+    KoboDownloadUrl,
+)
+from kobo_sync.models.kobo.library import (
     KoboEbookMetadata,
     KoboEntitlement,
     KoboEntitlementRange,
@@ -113,11 +115,11 @@ def build_ebook_metadata(
         isbn=metadata.isbn,
         publication_date=metadata.publication_date,
         contributors=[a.name for a in metadata.authors],
-        contributor_roles=[KoboEbookContributor(name=a.name) for a in metadata.authors],
+        contributor_roles=[KoboContributor(name=a.name) for a in metadata.authors],
         download_urls=[
-            KoboEbookDownloadUrl(
-                platform=KoboEbookDownloadPlatform.GENERIC,
-                format=KoboEbookDownloadFormat.EPUB3,
+            KoboDownloadUrl(
+                platform=KoboDownloadPlatform.GENERIC,
+                format=KoboDownloadFormat.EPUB3,
                 size=0,
                 url=build_download_url(request, metadata, "EPUB"),
             )

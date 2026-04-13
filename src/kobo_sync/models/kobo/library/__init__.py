@@ -1,3 +1,9 @@
+from .book import (
+    KoboEbookEmptySeries,
+    KoboEbookMetadata,
+    KoboEbookPublisher,
+    KoboEbookSeries,
+)
 from .entitlement import (
     KoboEntitlement,
     KoboEntitlementAccessibility,
@@ -5,21 +11,6 @@ from .entitlement import (
     KoboEntitlementOrigin,
     KoboEntitlementRange,
     KoboEntitlementStatus,
-)
-from .metadata import (
-    EbookAccessibility,
-    KoboEbookAccessibilityType,
-    KoboEbookContributor,
-    KoboEbookContributorRole,
-    KoboEbookDownloadDRM,
-    KoboEbookDownloadFormat,
-    KoboEbookDownloadPlatform,
-    KoboEbookDownloadUrl,
-    KoboEbookLocale,
-    KoboEbookMetadata,
-    KoboEbookPrice,
-    KoboEbookPublisher,
-    KoboEbookSeries,
 )
 from .reading_state import (
     KoboReadingBookmark,
@@ -33,25 +24,16 @@ from .reading_state import (
 from .sync import KoboSyncItem, KoboSyncItemEntitlement
 
 __all__ = (
+    "KoboEbookMetadata",
+    "KoboEbookEmptySeries",
+    "KoboEbookSeries",
+    "KoboEbookPublisher",
     "KoboEntitlement",
     "KoboEntitlementAccessibility",
     "KoboEntitlementMetadata",
     "KoboEntitlementOrigin",
     "KoboEntitlementRange",
     "KoboEntitlementStatus",
-    "EbookAccessibility",
-    "KoboEbookAccessibilityType",
-    "KoboEbookContributor",
-    "KoboEbookContributorRole",
-    "KoboEbookDownloadDRM",
-    "KoboEbookDownloadFormat",
-    "KoboEbookDownloadPlatform",
-    "KoboEbookDownloadUrl",
-    "KoboEbookLocale",
-    "KoboEbookMetadata",
-    "KoboEbookPrice",
-    "KoboEbookPublisher",
-    "KoboEbookSeries",
     "KoboReadingBookmark",
     "KoboReadingBookmarkLocation",
     "KoboReadingBookmarkLocationType",

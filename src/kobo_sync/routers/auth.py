@@ -1,5 +1,5 @@
 from logging import getLogger as get_logger
-from urllib.parse import urljoin, parse_qs, urlencode
+from urllib.parse import urlencode, urljoin
 from uuid import UUID
 
 from fastapi import APIRouter, Request
@@ -24,7 +24,6 @@ async def post_auth_device():
     :param request:
     :return:
     """
-
     return KoboTokenAndUserResponse(
         token_type=TokenType.BEARER,
         access_token="ACCESS_TOKEN",
@@ -69,21 +68,16 @@ def get_sign_in():
 @router.get("/v1/auth/activate")
 def get_activation():
     """On activation completed."""
-
     # Placeholders
     user_key = UUID(int=1)
     user_id = UUID(int=2)
     user_email = "example@example.com"
 
-    query_string = urlencode({
-        "userKey": str(user_key),
-        "userId": str(user_id),
-        "email": user_email
-    })
-
-    return RedirectResponse(
-        f"kobo://UserAuthenticated?{query_string}"
+    query_string = urlencode(
+        {"userKey": str(user_key), "userId": str(user_id), "email": user_email}
     )
+
+    return RedirectResponse(f"kobo://UserAuthenticated?{query_string}")
 
 
 @router.get("/.well-known/openid-configuration")
