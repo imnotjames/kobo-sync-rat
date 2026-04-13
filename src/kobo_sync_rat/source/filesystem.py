@@ -8,8 +8,8 @@ from uuid import UUID
 
 from cachetools import LRUCache, cachedmethod
 
-from kobo_sync.metadata.base import MetadataReader
-from kobo_sync.source.source import (
+from kobo_sync_rat.metadata.base import MetadataReader
+from kobo_sync_rat.source.source import (
     EbookEvent,
     EbookEventType,
     EbookMetadata,

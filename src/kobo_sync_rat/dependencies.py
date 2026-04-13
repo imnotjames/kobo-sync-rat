@@ -1,10 +1,10 @@
 import os
 from functools import cache
 
-from kobo_sync.metadata.epub2 import Epub2MetadataReader
-from kobo_sync.source.filesystem import FilesystemSource
-from kobo_sync.source.grimmory import GrimmorySource
-from kobo_sync.source.source import EbookSource
+from kobo_sync_rat.metadata.epub2 import Epub2MetadataReader
+from kobo_sync_rat.source.filesystem import FilesystemSource
+from kobo_sync_rat.source.grimmory import GrimmorySource
+from kobo_sync_rat.source.source import EbookSource
 
 
 @cache

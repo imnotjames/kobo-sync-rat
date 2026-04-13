@@ -1,6 +1,6 @@
 from pydantic.dataclasses import dataclass
 
-from kobo_sync.models.dataclass import config
+from kobo_sync_rat.models.dataclass import config
 
 from .book import KoboEbookMetadata
 from .entitlement import KoboEntitlement

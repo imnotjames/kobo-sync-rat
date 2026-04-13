@@ -12,7 +12,7 @@ from pydantic import ConfigDict, TypeAdapter
 from pydantic.alias_generators import to_camel
 from pydantic.dataclasses import dataclass
 
-from kobo_sync.source.source import (
+from kobo_sync_rat.source.source import (
     EbookAuthor,
     EbookEvent,
     EbookEventType,

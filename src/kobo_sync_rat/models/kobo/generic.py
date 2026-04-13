@@ -5,7 +5,7 @@ from typing import Optional, Sequence
 from pydantic import Field
 from pydantic.dataclasses import dataclass
 
-from kobo_sync.models.dataclass import config
+from kobo_sync_rat.models.dataclass import config
 
 
 @dataclass(config=config)

@@ -5,7 +5,7 @@ from logging import getLogger as get_logger
 import uvicorn
 from typer import Typer
 
-from kobo_sync.app import app as fastapi_app
+from kobo_sync_rat.app import app as fastapi_app
 
 app = Typer()
 

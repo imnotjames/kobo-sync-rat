@@ -6,7 +6,7 @@ from uuid import UUID
 
 from pydantic.dataclasses import dataclass
 
-from kobo_sync.models.dataclass import config
+from kobo_sync_rat.models.dataclass import config
 
 
 class Region(Enum):

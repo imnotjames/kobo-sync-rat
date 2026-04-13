@@ -5,7 +5,7 @@ from uuid import UUID
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 
-from kobo_sync.models.kobo.auth import (
+from kobo_sync_rat.models.kobo.auth import (
     KoboTokenAndUserResponse,
     KoboTokenResponse,
     TokenType,

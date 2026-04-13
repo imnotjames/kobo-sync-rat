@@ -10,14 +10,14 @@ from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import StreamingResponse
 from pydantic import Field, TypeAdapter
 
-from kobo_sync.dependencies import get_ebook_source
-from kobo_sync.models.kobo.generic import (
+from kobo_sync_rat.dependencies import get_ebook_source
+from kobo_sync_rat.models.kobo.generic import (
     KoboContributor,
     KoboDownloadFormat,
     KoboDownloadPlatform,
     KoboDownloadUrl,
 )
-from kobo_sync.models.kobo.library import (
+from kobo_sync_rat.models.kobo.library import (
     KoboEbookMetadata,
     KoboEntitlement,
     KoboEntitlementRange,
@@ -25,8 +25,8 @@ from kobo_sync.models.kobo.library import (
     KoboSyncItem,
     KoboSyncItemEntitlement,
 )
-from kobo_sync.responses import PydanticResponse
-from kobo_sync.source.source import (
+from kobo_sync_rat.responses import PydanticResponse
+from kobo_sync_rat.source.source import (
     EbookEvent,
     EbookEventType,
     EbookMetadata,

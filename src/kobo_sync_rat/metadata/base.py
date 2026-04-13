@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from kobo_sync.source.source import EbookMetadata
+from kobo_sync_rat.source.source import EbookMetadata
 
 
 class IncompatibleEbookFormat(Exception):

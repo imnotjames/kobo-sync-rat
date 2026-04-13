@@ -3,8 +3,8 @@ from logging import getLogger as get_logger
 
 from fastapi import FastAPI, HTTPException, Request
 
-from kobo_sync.middleware import LoggingMiddleware, OverrideBaseUrl
-from kobo_sync.routers import (
+from kobo_sync_rat.middleware import LoggingMiddleware, OverrideBaseUrl
+from kobo_sync_rat.routers import (
     auth_router,
     configuration_router,
     library_router,

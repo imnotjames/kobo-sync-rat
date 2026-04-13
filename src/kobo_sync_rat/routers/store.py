@@ -4,8 +4,8 @@ from uuid import UUID
 
 from fastapi import APIRouter, HTTPException
 
-from kobo_sync.models.kobo.generic import KoboPrice
-from kobo_sync.models.kobo.store import (
+from kobo_sync_rat.models.kobo.generic import KoboPrice
+from kobo_sync_rat.models.kobo.store import (
     KoboAutocompleteSuggestion,
     KoboCategory,
     KoboDeals,

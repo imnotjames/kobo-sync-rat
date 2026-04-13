@@ -16,7 +16,7 @@ dependencies = [
 ]
 
 [project.scripts]
-serve = "kobo_sync.commands:serve"
+serve = "kobo_sync_rat.commands:serve"
 
 [build-system]
 requires = ["hatchling"]

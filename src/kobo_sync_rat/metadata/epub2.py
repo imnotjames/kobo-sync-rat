@@ -6,8 +6,8 @@ from zipfile import BadZipFile, ZipFile
 from lxml.etree import _Element as Element
 from lxml.etree import fromstring
 
-from kobo_sync.metadata.base import IncompatibleEbookFormat, MetadataReader
-from kobo_sync.source.source import (
+from kobo_sync_rat.metadata.base import IncompatibleEbookFormat, MetadataReader
+from kobo_sync_rat.source.source import (
     EbookAuthor,
     EbookFormat,
     EbookLanguage,

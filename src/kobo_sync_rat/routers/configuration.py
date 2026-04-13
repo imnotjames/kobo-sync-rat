@@ -4,8 +4,8 @@ from urllib.parse import urljoin
 
 from fastapi import APIRouter, Request
 
-from kobo_sync.models.kobo.configuration import KoboResourceContainer, KoboUserProfile
-from kobo_sync.responses import PydanticResponse
+from kobo_sync_rat.models.kobo.configuration import KoboResourceContainer, KoboUserProfile
+from kobo_sync_rat.responses import PydanticResponse
 
 logger = get_logger(__name__)
 
