@@ -1,4 +1,4 @@
-# Kobo Sync Rat
+# Kobo Sync Rat 🐀
 
 > [!WARNING]
 > This project is not ready for production use and is currently a proof of concept.
