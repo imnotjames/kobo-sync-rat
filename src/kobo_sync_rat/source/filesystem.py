@@ -56,7 +56,16 @@ class FilesystemSource(EbookSource):
             except Exception:
                 logger.exception(f"{str(type(reader))} cannot parse {entry_path}")
 
-        return None
+        raise RuntimeError("unparsable")
+
+    def _read_thumbnail(self, entry_path: str) -> IO[bytes] | None:
+        for reader in self._metadata_readers:
+            try:
+                return reader.read_thumbnail(entry_path)
+            except Exception:
+                logger.exception(f"{str(type(reader))} cannot parse {entry_path}")
+
+        raise RuntimeError("unparsable")
 
     @cachedmethod(
         lambda self: self._ebook_path_cache,
@@ -183,7 +192,15 @@ class FilesystemSource(EbookSource):
     def get_content_stream(self, book_id: UUID) -> IO[bytes]:
         entry_path = self._get_ebook_path_by_id(book_id)
 
+        if entry_path is None:
+            raise RuntimeError("Missing book")
+
         return open(entry_path, "rb")
 
     def get_cover_stream(self, book_id: UUID) -> IO[bytes]:
-        raise NotImplementedError()
+        entry_path = self._get_ebook_path_by_id(book_id)
+
+        if entry_path is None:
+            raise RuntimeError("Missing book")
+
+        return self._read_thumbnail(entry_path)
