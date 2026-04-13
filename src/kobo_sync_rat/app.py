@@ -38,14 +38,14 @@ def get_elabels_zip():
 @app.api_route("/{full_path:path}", methods=["GET", "POST", "PUT", "PATCH", "DELETE"])
 async def everything_else(request: Request):
     # Forward to the forward url
-    logger.info("Not implemented")
+    logger.debug("Not implemented")
 
     for header, value in request.headers.items():
-        logger.info("%s: %s", header, value)
+        logger.debug("%s: %s", header, value)
 
-    logger.info("Body:")
-    logger.info("-----------")
-    logger.info(await request.body())
-    logger.info("-----------")
+    logger.debug("Body:")
+    logger.debug("-----------")
+    logger.debug(await request.body())
+    logger.debug("-----------")
 
     return None
