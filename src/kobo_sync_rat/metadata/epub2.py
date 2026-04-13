@@ -150,6 +150,38 @@ class Epub2MetadataReader(MetadataReader):
 
         return None
 
+    @staticmethod
+    def _query_manifest_items_with_property(opf: Element, property_name: str) -> Sequence[Element]:
+        return opf.xpath(
+            """
+            /opf:package
+            /opf:manifest
+            /opf:item[
+                contains(
+                    concat(' ', normalize-space(@properties), ' '),
+                    concat(' ', $property_name, ' ')
+                )
+            ]
+            """,
+            namespaces=OPF_NS_MAP,
+            property_name=property_name,
+        )
+
+    @staticmethod
+    def _query_meta(opf: Element, name: str) -> str | None:
+        contents: Sequence[str] = opf.xpath(
+            """
+            /opf:package
+            /opf:metadata
+            /opf:meta[@name = $meta_name]
+            /@content
+            """,
+            namespaces=OPF_NS_MAP,
+            meta_name=name,
+        )
+
+        return contents[0] if len(contents) > 0 else None
+
     def _parse_series(self, opf: Element) -> Optional[EbookSeries]:
         series_name = self._query_string(
             opf,
@@ -244,6 +276,34 @@ class Epub2MetadataReader(MetadataReader):
             isbn=self._parse_isbn(opf),
         )
 
+    def _query_cover_item(self, opf: Element) -> str | None:
+        # First look for epub3 manifest item with the cover-image property
+        cover_image_elements = self._query_manifest_items_with_property(opf, "cover-image")
+
+        for element in cover_image_elements:
+            href = element.attrib.get("href")
+            if href is not None:
+                return href
+
+        # Fall back to a meta name="cover" that references the cover ID
+        cover_id = self._query_meta(opf, "cover")
+        if cover_id is not None:
+            cover_elements = opf.xpath(
+                "/opf:package/opf:manifest/opf:item[@id = $cover_id]",
+                namespaces=OPF_NS_MAP,
+                cover_id=cover_id,
+            )
+
+            for element in cover_elements:
+                href = element.attrib.get("href")
+                if href is not None:
+                    return href
+
+        # TODO: Last, fall back to any manifest item that is an image.
+
+        return None
+
+
     def read_metadata(self, filename: str | IO[bytes]) -> EbookMetadata:
         try:
             with ZipFile(filename) as z:
@@ -253,5 +313,18 @@ class Epub2MetadataReader(MetadataReader):
         except BadZipFile:
             raise IncompatibleEbookFormat()
 
-    def read_thumbnail(self, filename: str):
-        raise NotImplementedError()
+    def read_thumbnail(self, filename: str | IO[bytes]) -> IO[bytes]:
+        try:
+            with ZipFile(filename) as z:
+                opf_element = self._get_opf_element(z)
+
+                cover_entry_name = self._query_cover_item(opf_element)
+
+                if cover_entry_name is not None:
+                    # Return this even though the zip file resource will
+                    # be closed - it seems it can be read fine.
+                    return z.open(cover_entry_name)
+        except BadZipFile:
+            raise IncompatibleEbookFormat()
+
+        raise RuntimeError("Not found")
