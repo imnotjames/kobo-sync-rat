@@ -13,12 +13,12 @@ logger = get_logger(__name__)
 
 
 @app.command()
-def serve():
+def serve(
+    host: str = "0.0.0.0",
+    port: int = 8080,
+):
     # Configure logging
     basic_config(level=DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
-
-    host = "0.0.0.0"
-    port = 6060
 
     logger.info("Serving kobo_sync at %d", port)
 
