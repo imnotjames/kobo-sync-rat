@@ -2,7 +2,6 @@ import os
 from logging import getLogger as get_logger
 
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import PlainTextResponse
 
 from kobo_sync_rat.middleware import LoggingMiddleware, OverrideBaseUrl
 from kobo_sync_rat.routers import (
