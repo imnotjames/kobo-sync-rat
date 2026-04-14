@@ -1,7 +1,7 @@
 import os
 from functools import cache
 
-from kobo_sync_rat.metadata.epub2 import Epub2MetadataReader
+from kobo_sync_rat.metadata.epub import EpubMetadataReader
 from kobo_sync_rat.source.filesystem import FilesystemSource
 from kobo_sync_rat.source.grimmory import GrimmorySource
 from kobo_sync_rat.source.source import EbookSource
@@ -22,7 +22,7 @@ def get_ebook_source() -> EbookSource:
         case "filesystem":
             return FilesystemSource(
                 os.environ.get("SYNC_SOURCE_DIRECTORY", "./books/"),
-                metadata_readers=[Epub2MetadataReader()],
+                metadata_readers=[EpubMetadataReader()],
             )
 
     raise RuntimeError("unknown source")

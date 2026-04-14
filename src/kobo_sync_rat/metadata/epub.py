@@ -25,7 +25,7 @@ OPF_NS_MAP = {
 OD_NS_MAP = {"n": "urn:oasis:names:tc:opendocument:xmlns:container"}
 
 
-class Epub2MetadataReader(MetadataReader):
+class EpubMetadataReader(MetadataReader):
     def _query_string(
         self,
         element: Element,
