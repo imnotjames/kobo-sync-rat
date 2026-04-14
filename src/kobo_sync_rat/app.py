@@ -27,7 +27,6 @@ app.include_router(store_router)
 app.include_router(documentation_router)
 
 
-
 @app.get("/elabels/{elabels_zip}")
 def get_elabels_zip():
     raise HTTPException(status_code=404)

@@ -25,7 +25,7 @@ def index(request: Request):
         package_summary,
         "You can get started by downloading the config "
         f"at `{config_url}` and placing on your Kobo at "
-        "`.kobo/Kobo/Kobo eReader.conf`."
+        "`.kobo/Kobo/Kobo eReader.conf`.",
     ]
 
     return "\n\n".join(readme_text)

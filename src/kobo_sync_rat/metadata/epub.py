@@ -151,7 +151,9 @@ class EpubMetadataReader(MetadataReader):
         return None
 
     @staticmethod
-    def _query_manifest_items_with_property(opf: Element, property_name: str) -> Sequence[Element]:
+    def _query_manifest_items_with_property(
+        opf: Element, property_name: str
+    ) -> Sequence[Element]:
         return opf.xpath(
             """
             /opf:package
@@ -278,7 +280,9 @@ class EpubMetadataReader(MetadataReader):
 
     def _query_cover_item(self, opf: Element) -> str | None:
         # First look for epub3 manifest item with the cover-image property
-        cover_image_elements = self._query_manifest_items_with_property(opf, "cover-image")
+        cover_image_elements = self._query_manifest_items_with_property(
+            opf, "cover-image"
+        )
 
         for element in cover_image_elements:
             href = element.attrib.get("href")
@@ -302,7 +306,6 @@ class EpubMetadataReader(MetadataReader):
         # TODO: Last, fall back to any manifest item that is an image.
 
         return None
-
 
     def read_metadata(self, filename: str | IO[bytes]) -> EbookMetadata:
         try:
