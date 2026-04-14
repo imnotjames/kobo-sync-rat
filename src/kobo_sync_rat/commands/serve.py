@@ -18,7 +18,41 @@ def serve(
     port: int = 8080,
 ):
     # Configure logging
-    basic_config(level=DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
+    default_format = "%(asctime)s - %(levelname)8s - %(message)s"
+
+    basic_config(level=DEBUG, format=default_format)
+
+    uvicorn_log_config = {
+        "version": 1,
+        "disable_existing_loggers": False,
+        "formatters": {
+            "default": {
+                "()": "uvicorn.logging.DefaultFormatter",
+                "fmt": default_format,
+            },
+            "access": {
+                "()": "uvicorn.logging.AccessFormatter",
+                "fmt": '%(asctime)s - %(levelname)8s - %(client_addr)s - "%(request_line)s" %(status_code)s',
+            },
+        },
+        "handlers": {
+            "default": {
+                "formatter": "default",
+                "class": "logging.StreamHandler",
+                "stream": "ext://sys.stderr",
+            },
+            "access": {
+                "formatter": "access",
+                "class": "logging.StreamHandler",
+                "stream": "ext://sys.stdout",
+            },
+        },
+        "loggers": {
+            "uvicorn": {"handlers": ["default"], "level": "INFO", "propagate": False},
+            "uvicorn.error": {"level": "INFO"},
+            "uvicorn.access": {"handlers": ["access"], "level": "INFO", "propagate": False},
+        },
+    }
 
     logger.info("Serving kobo_sync at %d", port)
 
@@ -26,6 +60,9 @@ def serve(
         fastapi_app,
         host=host,
         port=port,
+        access_log=False,
+        use_colors=False,
+        log_config=uvicorn_log_config
     )
 
 
