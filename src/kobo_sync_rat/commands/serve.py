@@ -1,9 +1,10 @@
 from logging import DEBUG
 from logging import basicConfig as basic_config
 from logging import getLogger as get_logger
+from typing import Annotated
 
 import uvicorn
-from typer import Typer
+from typer import Option, Typer
 
 from kobo_sync_rat.app import app as fastapi_app
 
@@ -14,8 +15,14 @@ logger = get_logger(__name__)
 
 @app.command()
 def serve(
-    host: str = "0.0.0.0",
-    port: int = 8080,
+    host: Annotated[
+        str,
+        Option(envvar="LISTEN_HOST", help="Host name serve on"),
+    ] = "0.0.0.0",
+    port: Annotated[
+        int,
+        Option(envvar="LISTEN_PORT", help="Port to serve on"),
+    ] = 8080,
 ):
     # Configure logging
     default_format = "%(asctime)s - %(levelname)8s - %(message)s"
