@@ -5,6 +5,7 @@ from uuid import UUID
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 
+import kobo_sync_rat
 from kobo_sync_rat.models.kobo.auth import (
     KoboTokenAndUserResponse,
     KoboTokenResponse,
@@ -152,4 +153,4 @@ async def post_oidc_token(request: Request):
 @router.get("/v1/affiliate")
 def get_affiliate():
     # This is passed along somewhere?
-    return {"AffiliateName": "SyncRat"}
+    return {"AffiliateName": kobo_sync_rat.__name__}
