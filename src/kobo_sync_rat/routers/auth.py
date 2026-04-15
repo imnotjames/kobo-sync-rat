@@ -128,13 +128,24 @@ def get_openid_configuration(request: Request):
     }
 
 
+@router.get("/oidc/device/complete")
+def get_oidc_device_complete(user_code: str):
+    return None
+
+
 @router.get("/oidc/authorize")
-def get_oidc_authorize():
+def get_oidc_authorize(request: Request):
+    device_code = "EXAMPLE_DEVICE_CODE"
+    user_code = "EXAMPLE_USER_CODE"
+
+    verification_uri = str(request.url_for("get_oidc_device_complete"))
+    verification_uri_complete = str(request.url_for("get_oidc_device_complete").include_query_params(user_code=user_code))
+
     return {
-        "device_code": "EXAMPLE_DEVICE_CODE",
-        "user_code": "EXAMPLE",
-        "verification_uri": "oidc/device",
-        "verification_uri_complete": "oidc/device?user_code=EXAMPLE",
+        "device_code": device_code,
+        "user_code": user_code,
+        "verification_uri": verification_uri,
+        "verification_uri_complete": verification_uri_complete,
         "expires_in": 1800,
         "interval": 5,
     }
