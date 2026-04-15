@@ -50,6 +50,8 @@ RUN apk add --no-cache tini
 COPY --from=build /app/.venv /app/.venv
 ENV PATH="/app/.venv/bin:$PATH"
 
+EXPOSE 8080
+
 ENTRYPOINT ["/sbin/tini", "-s", "--"]
 
 CMD ["serve"]
