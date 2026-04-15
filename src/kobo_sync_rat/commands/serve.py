@@ -50,7 +50,11 @@ def serve(
         "loggers": {
             "uvicorn": {"handlers": ["default"], "level": "INFO", "propagate": False},
             "uvicorn.error": {"level": "INFO"},
-            "uvicorn.access": {"handlers": ["access"], "level": "INFO", "propagate": False},
+            "uvicorn.access": {
+                "handlers": ["access"],
+                "level": "INFO",
+                "propagate": False,
+            },
         },
     }
 
@@ -62,7 +66,7 @@ def serve(
         port=port,
         access_log=False,
         use_colors=False,
-        log_config=uvicorn_log_config
+        log_config=uvicorn_log_config,
     )
 
 
