@@ -18,7 +18,7 @@ def index(request: Request):
     package_version = package_metadata.get("version")
     package_summary = package_metadata.get("summary")
 
-    config_url = urljoin(str(request.base_url), "/config")
+    config_url = request.url_for("get_kobo_config")
 
     readme_text = [
         f"Welcome to {package_name} v{package_version}!",
@@ -31,7 +31,7 @@ def index(request: Request):
     return "\n\n".join(readme_text)
 
 
-@router.get("/config", response_class=PlainTextResponse)
+@router.get("/kobo.conf", response_class=PlainTextResponse)
 def get_kobo_config(request: Request):
     api_endpoint = urljoin(str(request.base_url), "/").rstrip("/")
 
