@@ -45,6 +45,9 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 
 FROM python:${PYTHON_VERSION}-alpine${ALPINE_VERSION} AS run
 
+ENV LISTEN_HOST="0.0.0.0"
+ENV LISTEN_PORT="8080"
+
 RUN apk add --no-cache tini
 
 COPY --from=build /app/.venv /app/.venv
