@@ -22,9 +22,12 @@ logger = get_logger(__name__)
 router = APIRouter()
 
 
-@router.get("/v1/user/recommendations")
+@router.get(
+    "/v1/user/recommendations",
+    response_model=KoboStorePagination[KoboProductBookContainer],
+)
 def get_recommendations():
-    return []
+    return KoboStorePagination.empty()
 
 
 @router.get(
