@@ -177,6 +177,86 @@ class KoboProductBookContainer:
 
 
 @dataclass(config=config)
+class KoboProductAudiobook:
+    id: UUID
+
+    cross_revision_id: UUID
+
+    work_id: UUID
+
+    related_group_id: UUID
+
+    title: str
+
+    description: str
+
+    language: str
+
+    image_id: UUID
+
+    publisher_name: str
+
+    publication_date: datetime
+
+    slug: str
+
+    subtitle: str
+
+    isbn: str = Field(serialization_alias="ISBN")
+
+    accessibility_details: KoboAccessibility = field(
+        default_factory=lambda: KoboAccessibility()
+    )
+
+    duration: int = 0
+
+    total_bytes: int = 0
+
+    is_abridged: bool = False
+
+    has_preview: bool = False
+
+    contributors: str = ""
+
+    contributor_roles: Sequence[KoboContributor] = field(default_factory=list)
+
+    is_recommendation: bool = False
+
+    rating: int = 0
+
+    total_rating: int = 0
+
+    is_free: bool = True
+
+    price: KoboPrice = field(default_factory=lambda: KoboPrice.empty())
+
+    promo_code_allowed: bool = False
+
+    love_price: KoboPrice = field(default_factory=lambda: KoboPrice.empty())
+
+    love_points_price: int = 0
+
+    eligible_for_kobo_love_discount: bool = False
+
+    love_savings: float | int = 0.0
+
+    is_pre_order: bool = False
+
+    is_content_sharing_enabled: bool = False
+
+    age_verification_required: bool = False
+
+    applicable_subscriptions: Sequence[UUID] = field(default_factory=list)
+
+    lifecycle_dates: Mapping[str, datetime] = field(default_factory=dict)
+
+
+@dataclass(config=config)
+class KoboProductAudiobookContainer:
+    audiobook: KoboProductAudiobook
+
+
+@dataclass(config=config)
 class KoboCategory:
     id: UUID
 
@@ -195,7 +275,7 @@ class KoboListReference:
 
     html_description: str
 
-    items: Sequence[KoboProductBook]
+    items: Sequence[KoboProductBook | KoboProductAudiobook]
 
     links: Mapping[str, KoboLink] = Field(serialization_alias="_links")
 

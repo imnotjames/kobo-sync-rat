@@ -14,6 +14,10 @@ class KoboPrice:
 
     price: float = 0
 
+    @classmethod
+    def empty(cls):
+        return cls("USD", 0)
+
 
 @dataclass(config=config)
 class KoboLink:
@@ -79,6 +83,7 @@ class KoboDownloadUrl:
 
 class KoboContributorRole(Enum):
     AUTHOR = "Author"
+    NARRATOR = "Narrator"
 
 
 @dataclass(config=config)

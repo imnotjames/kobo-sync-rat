@@ -11,6 +11,8 @@ from kobo_sync_rat.models.kobo.store import (
     KoboDeals,
     KoboFeaturedList,
     KoboListReference,
+    KoboProductAudiobook,
+    KoboProductAudiobookContainer,
     KoboProductBook,
     KoboProductBookContainer,
     KoboProductHighlight,
@@ -24,7 +26,9 @@ router = APIRouter()
 
 @router.get(
     "/v1/user/recommendations",
-    response_model=KoboStorePagination[KoboProductBookContainer],
+    response_model=KoboStorePagination[
+        KoboProductBookContainer | KoboProductAudiobookContainer
+    ],
 )
 def get_recommendations():
     return KoboStorePagination.empty()
@@ -32,14 +36,17 @@ def get_recommendations():
 
 @router.get(
     "/v1/products/featured/{featured_list_id}",
-    response_model=KoboStorePagination[KoboProductBookContainer],
+    response_model=KoboStorePagination[
+        KoboProductBookContainer | KoboProductAudiobookContainer
+    ],
 )
 def get_featured_products():
     return KoboStorePagination.empty()
 
 
 @router.get(
-    "/v1/products/featured/", response_model=KoboStorePagination[KoboFeaturedList]
+    "/v1/products/featured/",
+    response_model=KoboStorePagination[KoboFeaturedList],
 )
 def get_featured_products_lists():
     return KoboStorePagination.empty()
@@ -58,7 +65,12 @@ def get_deals():
     return KoboDeals.empty()
 
 
-@router.get("/v1/products/{like_other_book_id}/recommendations")
+@router.get(
+    "/v1/products/{like_other_book_id}/recommendations",
+    response_model=KoboStorePagination[
+        KoboProductBookContainer | KoboProductAudiobookContainer
+    ],
+)
 def get_product_recommendations(like_other_book_id: UUID):
     return KoboStorePagination.empty()
 
@@ -71,22 +83,34 @@ def get_product_search_autocomplete():
     return KoboStorePagination.empty()
 
 
-@router.get("/v1/products", response_model=KoboStorePagination[KoboProductBook])
+@router.get(
+    "/v1/products",
+    response_model=KoboStorePagination[KoboProductBook | KoboProductAudiobook],
+)
 def get_products():
     return KoboStorePagination.empty()
 
 
-@router.get("/v1/products/books/", response_model=KoboStorePagination[KoboProductBook])
+@router.get(
+    "/v1/products/books/",
+    response_model=KoboStorePagination[KoboProductBook | KoboProductAudiobook],
+)
 def get_products_books():
     return []
 
 
-@router.get("/v1/products/books/{book_id}/", response_model=KoboProductBookContainer)
+@router.get(
+    "/v1/products/books/{book_id}/",
+    response_model=(KoboProductBookContainer | KoboProductAudiobook),
+)
 def get_products_book(book_id: UUID):
     raise HTTPException(status_code=404)
 
 
-@router.get("/v1/products/dailydeal", response_model=KoboProductHighlight)
+@router.get(
+    "/v1/products/dailydeal",
+    response_model=KoboProductHighlight,
+)
 def get_daily_deal():
     raise HTTPException(status_code=404)
 
@@ -97,14 +121,16 @@ def get_book_subscriptions():
 
 
 @router.get(
-    "/v1/categories/{category_id}", response_model=KoboStorePagination[KoboCategory]
+    "/v1/categories/{category_id}",
+    response_model=KoboStorePagination[KoboCategory],
 )
 def get_categories(category_id: UUID):
     return KoboStorePagination.empty()
 
 
 @router.get(
-    "/v1/categories/{category_id}/featured", response_model=Sequence[KoboListReference]
+    "/v1/categories/{category_id}/featured",
+    response_model=Sequence[KoboListReference],
 )
 def get_category_featured_products(category_id: UUID):
     # Returns a list of featured lists for a category
