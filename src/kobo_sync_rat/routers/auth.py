@@ -61,6 +61,13 @@ def get_sign_up():
     )
 
 
+@router.get("/signin/provider/{provider}/login")
+def get_provider_login():
+    return HTMLResponse(
+        content="<html><body>Unsupported.</body></html>"
+    )
+
+
 @router.get("/signin")
 def get_sign_in():
     """Sign in to an account for this kobo device."""
