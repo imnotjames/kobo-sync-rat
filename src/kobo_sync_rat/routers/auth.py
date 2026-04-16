@@ -53,6 +53,14 @@ async def post_auth_refresh(request: Request):
     )
 
 
+@router.get("/signup")
+def get_sign_up():
+    """Sign up to an account for this kobo device."""
+    return HTMLResponse(
+        content="<html><body>Sign Up is not currently supported.</body></html>"
+    )
+
+
 @router.get("/signin")
 def get_sign_in():
     """Sign in to an account for this kobo device."""
