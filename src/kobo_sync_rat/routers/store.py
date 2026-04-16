@@ -93,17 +93,33 @@ def get_products():
 
 @router.get(
     "/v1/products/books/",
-    response_model=KoboStorePagination[KoboProductBook | KoboProductAudiobook],
+    response_model=KoboStorePagination[KoboProductBook],
 )
 def get_products_books():
-    return []
+    return KoboStorePagination.empty()
 
 
 @router.get(
     "/v1/products/books/{book_id}/",
-    response_model=(KoboProductBookContainer | KoboProductAudiobook),
+    response_model=KoboProductBookContainer,
 )
 def get_products_book(book_id: UUID):
+    raise HTTPException(status_code=404)
+
+
+@router.get(
+    "/v1/products/audiobooks/",
+    response_model=KoboStorePagination[KoboProductAudiobook],
+)
+def get_products_audiobooks():
+    return KoboStorePagination.empty()
+
+
+@router.get(
+    "/v1/products/audiobooks/{book_id}/",
+    response_model=KoboProductAudiobookContainer,
+)
+def get_products_audiobook(book_id: UUID):
     raise HTTPException(status_code=404)
 
 
