@@ -139,7 +139,11 @@ def get_oidc_authorize(request: Request):
     user_code = "EXAMPLE_USER_CODE"
 
     verification_uri = str(request.url_for("get_oidc_device_complete"))
-    verification_uri_complete = str(request.url_for("get_oidc_device_complete").include_query_params(user_code=user_code))
+    verification_uri_complete = str(
+        request.url_for("get_oidc_device_complete").include_query_params(
+            user_code=user_code
+        )
+    )
 
     return {
         "device_code": device_code,
