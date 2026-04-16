@@ -40,7 +40,7 @@ def get_recommendations():
         KoboProductBookContainer | KoboProductAudiobookContainer
     ],
 )
-def get_featured_products():
+def get_featured_list():
     return KoboStorePagination.empty()
 
 
@@ -48,7 +48,7 @@ def get_featured_products():
     "/v1/products/featured/",
     response_model=KoboStorePagination[KoboFeaturedList],
 )
-def get_featured_products_lists():
+def get_featured_lists():
     return KoboStorePagination.empty()
 
 
