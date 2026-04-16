@@ -28,7 +28,7 @@ class KoboLink:
 
 @dataclass(config=config)
 class KoboAccessibilityType:
-    accessibility_type: str
+    accessibility_type: str = Field(serialization_alias="Type")
 
     value: Optional[str] = None
 
